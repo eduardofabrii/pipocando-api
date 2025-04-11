@@ -17,7 +17,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("register")
+@RequestMapping("v1/user")
 @RequiredArgsConstructor
 public class UserController {
 
@@ -28,7 +28,7 @@ public class UserController {
         return ResponseEntity.ok(userService.findAllUsers());
     }
 
-    @PostMapping("/register")
+    @PostMapping
     public ResponseEntity<Void> registerUser(@RequestBody @Valid RegistrationDTO registrationDTO) {
         userService.registerUser(registrationDTO);
         return ResponseEntity.ok().build();

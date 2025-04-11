@@ -40,13 +40,12 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(authorize -> authorize
                     // Rotas públicas para todos
                     .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
-
-
+                    .requestMatchers(HttpMethod.POST, "/v1/user").permitAll()
+                    
                     // Rotas protegidas acessíveis apenas por admin
                     .requestMatchers(HttpMethod.POST, "/v1/**").hasRole("ADMIN")
                     .requestMatchers(HttpMethod.DELETE, "/v1/**").hasRole("ADMIN")
                     .requestMatchers(HttpMethod.PUT, "/v1/**").hasRole("ADMIN")
-                    .requestMatchers(HttpMethod.GET, "/v1/**").permitAll()
                     
                     .anyRequest().authenticated()
                 )
