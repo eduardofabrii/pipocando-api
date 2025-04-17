@@ -18,8 +18,8 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import com.pipocando.infra.exception.ErrorResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.pipocando.exception.ErrorResponse;
 
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -40,13 +40,18 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(authorize -> authorize
                     // Rotas públicas para todos
                     .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
-
-
+                    .requestMatchers(HttpMethod.POST, "/v1/user").permitAll()
+                    
+                    // Todas as rotas para usuários autenticados
+                    .requestMatchers("/v1/movie/**").authenticated()
+                    .requestMatchers("/v1/serie/**").authenticated()
+                    .requestMatchers("/v1/avaliation/**").authenticated()
+                    
                     // Rotas protegidas acessíveis apenas por admin
                     .requestMatchers(HttpMethod.POST, "/v1/**").hasRole("ADMIN")
+                    .requestMatchers(HttpMethod.GET, "/v1/**").hasRole("ADMIN")
                     .requestMatchers(HttpMethod.DELETE, "/v1/**").hasRole("ADMIN")
                     .requestMatchers(HttpMethod.PUT, "/v1/**").hasRole("ADMIN")
-                    .requestMatchers(HttpMethod.GET, "/v1/**").permitAll()
                     
                     .anyRequest().authenticated()
                 )

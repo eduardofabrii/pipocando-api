@@ -11,5 +11,7 @@ import com.pipocando.dto.response.UserGetResponse;
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface UserMapper {
 
-    List<UserGetResponse> toUserGetResponseList(List<User> users); 
+    List<UserGetResponse> toUserGetResponseList(List<User> users);
+    
+    UserGetResponse toUserGetResponse(User user);
 }
