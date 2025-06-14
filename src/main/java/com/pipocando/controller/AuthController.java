@@ -27,14 +27,15 @@ public class AuthController {
     private final TokenService tokenService;
 
     @PostMapping("login")
-    public ResponseEntity login(@RequestBody @Valid AuthenticationDTO dto) {
+    public ResponseEntity<LoginResponseDTO> login(@RequestBody @Valid AuthenticationDTO dto) {
         var userPassword = new UsernamePasswordAuthenticationToken(dto.email(), dto.password());
         var auth = this.authenticationManager.authenticate(userPassword);
 
-        var token = tokenService.generateToken((User) auth.getPrincipal());
+        var user = (User) auth.getPrincipal();
+        var token = tokenService.generateToken(user);
 
         userService.updateLastLogin(dto.email());
         
-        return ResponseEntity.ok(new LoginResponseDTO(token));
+        return ResponseEntity.ok(new LoginResponseDTO(token, user.getName()));
     }
 }
