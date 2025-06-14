@@ -1,27 +1,43 @@
 package com.pipocando.mapper;
 
 import com.pipocando.domain.blog.Post;
+import com.pipocando.domain.user.User;
 import com.pipocando.dto.response.PostResponse;
-import org.springframework.stereotype.Component;
-
+import com.pipocando.dto.response.AuthorResponse;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.MappingConstants;
+import org.mapstruct.Named;
+import org.springframework.beans.factory.annotation.Autowired;
+import com.pipocando.repository.UserRepository;
 import java.util.List;
-import java.util.stream.Collectors;
 
-@Component
-public class PostMapper {
-    public PostResponse toResponse(Post post) {
-        if (post == null) return null;
-        PostResponse response = new PostResponse();
-        response.setId(post.getId());
-        response.setTitle(post.getTitle());
-        response.setContent(post.getContent());
-        response.setUserId(post.getUserId());
-        response.setMovieId(post.getMovieId());
-        response.setSerieId(post.getSerieId());
-        return response;
+@Mapper(componentModel = MappingConstants.ComponentModel.SPRING, uses = {UserRepository.class})
+public abstract class PostMapper {
+    @Autowired
+    protected UserRepository userRepository;
+
+    @Mapping(target = "author", source = "userId", qualifiedByName = "userIdToAuthor")
+    @Mapping(target = "category", expression = "java(resolveCategory(post))")
+    public abstract PostResponse toResponse(Post post);
+
+    public abstract List<PostResponse> toResponseList(List<Post> posts);
+
+    @Named("userIdToAuthor")
+    protected AuthorResponse userIdToAuthor(Integer userId) {
+        if (userId == null) return null;
+        User user = userRepository.findById(userId).orElse(null);
+        if (user == null) return null;
+        AuthorResponse author = new AuthorResponse();
+        author.setId(user.getId());
+        author.setName(user.getName());
+        author.setEmail(user.getEmail());
+        return author;
     }
 
-    public List<PostResponse> toResponseList(List<Post> posts) {
-        return posts.stream().map(this::toResponse).collect(Collectors.toList());
+    protected String resolveCategory(Post post) {
+        if (post.getSerieId() != null) return "Séries";
+        if (post.getMovieId() != null) return "Filmes";
+        return "Blog";
     }
 }
