@@ -43,16 +43,8 @@ public class SecurityConfiguration {
                     .requestMatchers(HttpMethod.POST, "/v1/user").permitAll()
                     
                     // Todas as rotas para usuários autenticados
-                    .requestMatchers("/v1/movie/**").authenticated()
-                    .requestMatchers("/v1/serie/**").authenticated()
-                    .requestMatchers("/v1/avaliation/**").authenticated()
-                    
-                    // Rotas protegidas acessíveis apenas por admin
-                    .requestMatchers(HttpMethod.POST, "/v1/**").hasAnyRole("ADMIN", "USER")
-                    .requestMatchers(HttpMethod.GET, "/v1/**").hasAnyRole("ADMIN", "USER")
-                    .requestMatchers(HttpMethod.DELETE, "/v1/**").hasAnyRole("ADMIN", "USER")
-                    .requestMatchers(HttpMethod.PUT, "/v1/**").hasAnyRole("ADMIN", "USER")
-                    
+                    .requestMatchers("/v1/**").authenticated()
+
                     .anyRequest().authenticated()
                 )
                 .exceptionHandling(exceptionHandling -> exceptionHandling
