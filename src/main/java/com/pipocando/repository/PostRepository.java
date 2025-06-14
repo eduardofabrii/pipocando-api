@@ -36,4 +36,15 @@ public interface PostRepository extends JpaRepository<Post, Integer> {
                                    @Param("userName") String userName,
                                    @Param("movieName") String movieName,
                                    @Param("serieName") String serieName);
+
+    @Query("SELECT p FROM Post p WHERE (:category = 'all' OR :category IS NULL OR LOWER(p.category) = LOWER(:category)) " +
+           "AND (:title IS NULL OR LOWER(p.title) LIKE LOWER(CONCAT('%', :title, '%'))) " +
+           "AND (:userName IS NULL OR LOWER((SELECT u.name FROM User u WHERE u.id = p.userId)) LIKE LOWER(CONCAT('%', :userName, '%'))) " +
+           "AND (:movieName IS NULL OR LOWER((SELECT m.name FROM Movie m WHERE m.id = p.movieId)) LIKE LOWER(CONCAT('%', :movieName, '%'))) " +
+           "AND (:serieName IS NULL OR LOWER((SELECT s.name FROM Serie s WHERE s.id = p.serieId)) LIKE LOWER(CONCAT('%', :serieName, '%')))")
+    List<Post> searchPostsAdvancedWithCategory(@Param("title") String title,
+                                               @Param("userName") String userName,
+                                               @Param("movieName") String movieName,
+                                               @Param("serieName") String serieName,
+                                               @Param("category") String category);
 }

@@ -26,4 +26,7 @@ public class Post {
     private Integer serieId;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+
+    @Column(name = "category")
+    private String category;
 }

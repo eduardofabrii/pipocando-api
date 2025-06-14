@@ -87,7 +87,8 @@ public class PostController {
             @RequestParam(required = false) String title,
             @RequestParam(required = false) String userName,
             @RequestParam(required = false) String movieName,
-            @RequestParam(required = false) String serieName) {
-        return ResponseEntity.ok(postService.searchPostsAdvanced(title, userName, movieName, serieName));
+            @RequestParam(required = false) String serieName,
+            @RequestParam(required = false, defaultValue = "all") String category) {
+                return ResponseEntity.ok(postService.searchPostsAdvancedWithCategory(title, userName, movieName, serieName, category));
     }
 }

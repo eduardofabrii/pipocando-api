@@ -42,6 +42,14 @@ public class PostServiceImpl implements PostService {
         post.setSerieId(postDTO.getSerieId());
         post.setCreatedAt(java.time.LocalDateTime.now());
         post.setUpdatedAt(java.time.LocalDateTime.now());
+        
+        if (postDTO.getMovieId() != null) {
+            post.setCategory("Filmes");
+        } else if (postDTO.getSerieId() != null) {
+            post.setCategory("Séries");
+        } else {
+            post.setCategory("Blog");
+        }
         Post saved = postRepository.save(post);
         return postMapper.toResponse(saved);
     }
@@ -57,6 +65,14 @@ public class PostServiceImpl implements PostService {
         post.setMovieId(postDTO.getMovieId());
         post.setSerieId(postDTO.getSerieId());
         post.setUpdatedAt(java.time.LocalDateTime.now());
+        
+        if (postDTO.getMovieId() != null) {
+            post.setCategory("Filmes");
+        } else if (postDTO.getSerieId() != null) {
+            post.setCategory("Séries");
+        } else {
+            post.setCategory("Blog");
+        }
         Post updated = postRepository.save(post);
         return postMapper.toResponse(updated);
     }
@@ -76,6 +92,12 @@ public class PostServiceImpl implements PostService {
     @Override
     public List<PostResponse> searchPostsAdvanced(String title, String userName, String movieName, String serieName) {
         List<Post> posts = postRepository.searchPostsAdvanced(title, userName, movieName, serieName);
+        return postMapper.toResponseList(posts);
+    }
+
+    @Override
+    public List<PostResponse> searchPostsAdvancedWithCategory(String title, String userName, String movieName, String serieName, String category) {
+        List<Post> posts = postRepository.searchPostsAdvancedWithCategory(title, userName, movieName, serieName, category);
         return postMapper.toResponseList(posts);
     }
 }

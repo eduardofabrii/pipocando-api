@@ -13,4 +13,5 @@ public interface PostService {
     void deletePost(Integer id);
     List<PostResponse> searchPosts(String title, Integer userId, Integer movieId, Integer serieId);
     List<PostResponse> searchPostsAdvanced(String title, String userName, String movieName, String serieName);
+    List<PostResponse> searchPostsAdvancedWithCategory(String title, String userName, String movieName, String serieName, String category);
 }
