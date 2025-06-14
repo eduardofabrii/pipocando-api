@@ -36,6 +36,6 @@ public class AuthController {
 
         userService.updateLastLogin(dto.email());
         
-        return ResponseEntity.ok(new LoginResponseDTO(token, user.getName()));
+        return ResponseEntity.ok(new LoginResponseDTO(token, user.getName(), user.getRole().name()));
     }
 }

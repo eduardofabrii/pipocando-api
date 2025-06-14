@@ -48,10 +48,10 @@ public class SecurityConfiguration {
                     .requestMatchers("/v1/avaliation/**").authenticated()
                     
                     // Rotas protegidas acessíveis apenas por admin
-                    .requestMatchers(HttpMethod.POST, "/v1/**").hasRole("ADMIN")
-                    .requestMatchers(HttpMethod.GET, "/v1/**").hasRole("ADMIN")
-                    .requestMatchers(HttpMethod.DELETE, "/v1/**").hasRole("ADMIN")
-                    .requestMatchers(HttpMethod.PUT, "/v1/**").hasRole("ADMIN")
+                    .requestMatchers(HttpMethod.POST, "/v1/**").hasAnyRole("ADMIN", "USER")
+                    .requestMatchers(HttpMethod.GET, "/v1/**").hasAnyRole("ADMIN", "USER")
+                    .requestMatchers(HttpMethod.DELETE, "/v1/**").hasAnyRole("ADMIN", "USER")
+                    .requestMatchers(HttpMethod.PUT, "/v1/**").hasAnyRole("ADMIN", "USER")
                     
                     .anyRequest().authenticated()
                 )
