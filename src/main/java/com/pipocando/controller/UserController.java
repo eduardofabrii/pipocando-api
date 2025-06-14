@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.pipocando.dto.registration.RegistrationDTO;
+import com.pipocando.dto.request.RegistrationRequest;
+import com.pipocando.dto.request.UserPutRequest;
 import com.pipocando.dto.response.UserGetResponse;
-import com.pipocando.dto.update.UserPutRequest;
 import com.pipocando.service.user.UserService;
 
 import jakarta.validation.Valid;
@@ -39,7 +39,7 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> registerUser(@RequestBody @Valid RegistrationDTO registrationDTO) {
+    public ResponseEntity<Void> registerUser(@RequestBody @Valid RegistrationRequest registrationDTO) {
         userService.registerUser(registrationDTO);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }

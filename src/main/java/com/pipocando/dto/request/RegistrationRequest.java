@@ -1,10 +1,10 @@
-package com.pipocando.dto.registration;
+package com.pipocando.dto.request;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
-public record RegistrationDTO(
+public record RegistrationRequest(
     @NotBlank(message = "Insira o nome")
     String name,
 

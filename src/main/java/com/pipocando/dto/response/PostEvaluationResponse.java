@@ -1,9 +1,9 @@
-package com.pipocando.dto.evaluation;
+package com.pipocando.dto.response;
 
 import lombok.Data;
 
 @Data
-public class PostEvaluationResponseDTO {
+public class PostEvaluationResponse {
     private Integer id;
     private Integer userId;
     private Integer postId;

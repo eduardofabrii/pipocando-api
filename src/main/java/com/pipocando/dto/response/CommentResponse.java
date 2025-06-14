@@ -1,6 +1,6 @@
-package com.pipocando.dto.comment;
+package com.pipocando.dto.response;
 
-public class CommentResponseDTO {
+public class CommentResponse {
     private Integer id;
     private String content;
     private Integer userId;

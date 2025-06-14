@@ -1,14 +1,14 @@
 package com.pipocando.controller;
 
-import com.pipocando.dto.post.PostDTO;
-import com.pipocando.dto.post.PostResponseDTO;
-import com.pipocando.dto.comment.CommentDTO;
-import com.pipocando.dto.comment.CommentResponseDTO;
-import com.pipocando.dto.evaluation.PostEvaluationDTO;
-import com.pipocando.dto.evaluation.PostEvaluationResponseDTO;
-import com.pipocando.service.blog.PostService;
-import com.pipocando.service.blog.CommentService;
-import com.pipocando.service.blog.PostEvaluationService;
+import com.pipocando.dto.request.CommentRequest;
+import com.pipocando.dto.request.PostEvaluationRequest;
+import com.pipocando.dto.response.CommentResponse;
+import com.pipocando.dto.response.PostEvaluationResponse;
+import com.pipocando.dto.response.PostResponse;
+import com.pipocando.service.comment.CommentService;
+import com.pipocando.service.post.PostService;
+import com.pipocando.service.postevaluation.PostEvaluationService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,28 +19,30 @@ import java.util.List;
 public class PostController {
     @Autowired
     private PostService postService;
+
     @Autowired
     private CommentService commentService;
+    
     @Autowired
     private PostEvaluationService postEvaluationService;
 
     @GetMapping
-    public ResponseEntity<List<PostResponseDTO>> getAllPosts() {
+    public ResponseEntity<List<PostResponse>> getAllPosts() {
         return ResponseEntity.ok(postService.getAllPosts());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<PostResponseDTO> getPostById(@PathVariable Integer id) {
+    public ResponseEntity<PostResponse> getPostById(@PathVariable Integer id) {
         return ResponseEntity.ok(postService.getPostById(id));
     }
 
     @PostMapping
-    public ResponseEntity<PostResponseDTO> createPost(@RequestBody PostDTO postDTO) {
+    public ResponseEntity<PostResponse> createPost(@RequestBody PostResponse postDTO) {
         return ResponseEntity.ok(postService.createPost(postDTO));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<PostResponseDTO> updatePost(@PathVariable Integer id, @RequestBody PostDTO postDTO) {
+    public ResponseEntity<PostResponse> updatePost(@PathVariable Integer id, @RequestBody PostResponse postDTO) {
         return ResponseEntity.ok(postService.updatePost(id, postDTO));
     }
 
@@ -52,23 +54,23 @@ public class PostController {
 
     // Comentários
     @PostMapping("/{postId}/comment")
-    public ResponseEntity<CommentResponseDTO> addComment(@PathVariable Integer postId, @RequestBody CommentDTO commentDTO) {
+    public ResponseEntity<CommentResponse> addComment(@PathVariable Integer postId, @RequestBody CommentRequest commentDTO) {
         return ResponseEntity.ok(commentService.addComment(postId, commentDTO));
     }
 
     @GetMapping("/{postId}/comment")
-    public ResponseEntity<List<CommentResponseDTO>> getComments(@PathVariable Integer postId) {
+    public ResponseEntity<List<CommentResponse>> getComments(@PathVariable Integer postId) {
         return ResponseEntity.ok(commentService.getComments(postId));
     }
 
     // Avaliações
     @PostMapping("/{postId}/evaluation")
-    public ResponseEntity<PostEvaluationResponseDTO> addEvaluation(@PathVariable Integer postId, @RequestBody PostEvaluationDTO evaluationDTO) {
+    public ResponseEntity<PostEvaluationResponse> addEvaluation(@PathVariable Integer postId, @RequestBody PostEvaluationRequest evaluationDTO) {
         return ResponseEntity.ok(postEvaluationService.addEvaluation(postId, evaluationDTO));
     }
 
     @GetMapping("/{postId}/evaluation")
-    public ResponseEntity<List<PostEvaluationResponseDTO>> getEvaluations(@PathVariable Integer postId) {
+    public ResponseEntity<List<PostEvaluationResponse>> getEvaluations(@PathVariable Integer postId) {
         return ResponseEntity.ok(postEvaluationService.getEvaluations(postId));
     }
 }

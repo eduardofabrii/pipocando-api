@@ -8,9 +8,9 @@ import org.springframework.stereotype.Service;
 
 import com.pipocando.domain.user.User;
 import com.pipocando.domain.user.UserRole;
-import com.pipocando.dto.registration.RegistrationDTO;
+import com.pipocando.dto.request.RegistrationRequest;
+import com.pipocando.dto.request.UserPutRequest;
 import com.pipocando.dto.response.UserGetResponse;
-import com.pipocando.dto.update.UserPutRequest;
 import com.pipocando.mapper.UserMapper;
 import com.pipocando.repository.UserRepository;
 
@@ -48,7 +48,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void registerUser(RegistrationDTO registrationDTO) {
+    public void registerUser(RegistrationRequest registrationDTO) {
         if (userRepository.findByEmail(registrationDTO.email()) != null) {
             throw new IllegalArgumentException("E-mail já utilizado anteriormente!");
         }

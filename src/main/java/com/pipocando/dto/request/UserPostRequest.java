@@ -1,4 +1,4 @@
-package com.pipocando.dto.update;
+package com.pipocando.dto.request;
 
 import com.pipocando.domain.user.UserRole;
 
