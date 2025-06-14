@@ -2,6 +2,7 @@ package com.pipocando.controller;
 
 import com.pipocando.dto.request.CommentRequest;
 import com.pipocando.dto.request.PostEvaluationRequest;
+import com.pipocando.dto.request.PostRequest;
 import com.pipocando.dto.response.CommentResponse;
 import com.pipocando.dto.response.PostEvaluationResponse;
 import com.pipocando.dto.response.PostResponse;
@@ -27,7 +28,14 @@ public class PostController {
     private PostEvaluationService postEvaluationService;
 
     @GetMapping
-    public ResponseEntity<List<PostResponse>> getAllPosts() {
+    public ResponseEntity<List<PostResponse>> getAllPosts(
+            @RequestParam(required = false) String title,
+            @RequestParam(required = false) Integer userId,
+            @RequestParam(required = false) Integer movieId,
+            @RequestParam(required = false) Integer serieId) {
+        if (title != null || userId != null || movieId != null || serieId != null) {
+            return ResponseEntity.ok(postService.searchPosts(title, userId, movieId, serieId));
+        }
         return ResponseEntity.ok(postService.getAllPosts());
     }
 
@@ -37,12 +45,12 @@ public class PostController {
     }
 
     @PostMapping
-    public ResponseEntity<PostResponse> createPost(@RequestBody PostResponse postDTO) {
+    public ResponseEntity<PostResponse> createPost(@RequestBody PostRequest postDTO) {
         return ResponseEntity.ok(postService.createPost(postDTO));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<PostResponse> updatePost(@PathVariable Integer id, @RequestBody PostResponse postDTO) {
+    public ResponseEntity<PostResponse> updatePost(@PathVariable Integer id, @RequestBody PostRequest postDTO) {
         return ResponseEntity.ok(postService.updatePost(id, postDTO));
     }
 
@@ -72,5 +80,14 @@ public class PostController {
     @GetMapping("/{postId}/evaluation")
     public ResponseEntity<List<PostEvaluationResponse>> getEvaluations(@PathVariable Integer postId) {
         return ResponseEntity.ok(postEvaluationService.getEvaluations(postId));
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<PostResponse>> searchPostsAdvanced(
+            @RequestParam(required = false) String title,
+            @RequestParam(required = false) String userName,
+            @RequestParam(required = false) String movieName,
+            @RequestParam(required = false) String serieName) {
+        return ResponseEntity.ok(postService.searchPostsAdvanced(title, userName, movieName, serieName));
     }
 }

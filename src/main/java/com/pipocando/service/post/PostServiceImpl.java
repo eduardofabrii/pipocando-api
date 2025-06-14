@@ -1,6 +1,7 @@
 package com.pipocando.service.post;
 
 import com.pipocando.domain.blog.Post;
+import com.pipocando.dto.request.PostRequest;
 import com.pipocando.dto.response.PostResponse;
 import com.pipocando.mapper.PostMapper;
 import com.pipocando.repository.PostRepository;
@@ -32,7 +33,7 @@ public class PostServiceImpl implements PostService {
 
     @Override
     @Transactional
-    public PostResponse createPost(PostResponse postDTO) {
+    public PostResponse createPost(PostRequest postDTO) {
         Post post = new Post();
         post.setTitle(postDTO.getTitle());
         post.setContent(postDTO.getContent());
@@ -47,7 +48,7 @@ public class PostServiceImpl implements PostService {
 
     @Override
     @Transactional
-    public PostResponse updatePost(Integer id, PostResponse postDTO) {
+    public PostResponse updatePost(Integer id, PostRequest postDTO) {
         Post post = postRepository.findById(id).orElse(null);
         if (post == null) return null;
         post.setTitle(postDTO.getTitle());
@@ -64,5 +65,17 @@ public class PostServiceImpl implements PostService {
     @Transactional
     public void deletePost(Integer id) {
         postRepository.deleteById(id);
+    }
+
+    @Override
+    public List<PostResponse> searchPosts(String title, Integer userId, Integer movieId, Integer serieId) {
+        List<Post> posts = postRepository.searchPosts(title, userId, movieId, serieId);
+        return postMapper.toResponseList(posts);
+    }
+
+    @Override
+    public List<PostResponse> searchPostsAdvanced(String title, String userName, String movieName, String serieName) {
+        List<Post> posts = postRepository.searchPostsAdvanced(title, userName, movieName, serieName);
+        return postMapper.toResponseList(posts);
     }
 }
