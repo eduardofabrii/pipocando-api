@@ -11,7 +11,7 @@ public interface UserService {
     UserGetResponse findUserById(Integer id);
     void updateLastLogin(String email);
     void registerUser(RegistrationRequest registrationDTO);
-    void updateUser(Integer id, UserPutRequest userPutRequest);
+    UserGetResponse updateUser(Integer id, UserPutRequest userPutRequest);
     void deleteUser(Integer id);
     void restoreUser(Integer id);
 }

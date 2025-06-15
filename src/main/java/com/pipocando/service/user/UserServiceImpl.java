@@ -3,6 +3,8 @@ package com.pipocando.service.user;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -64,21 +66,48 @@ public class UserServiceImpl implements UserService {
     }
     
     @Override
-    public void updateUser(Integer id, UserPutRequest userPutRequest) {
+    public UserGetResponse updateUser(Integer id, UserPutRequest userPutRequest) {
         User user = userRepository.findByIdAndDeletedAtIsNull(id)
             .orElseThrow(() -> new EntityNotFoundException("Usuário não encontrado com o ID: " + id));
         
+        // Validar email único
         User existingUserWithEmail = (User) userRepository.findByEmail(userPutRequest.email());
         if (existingUserWithEmail != null && !existingUserWithEmail.getId().equals(id)) {
             throw new IllegalArgumentException("E-mail já utilizado por outro usuário!");
         }
         
+        // Atualizar dados básicos
         user.setName(userPutRequest.name());
         user.setEmail(userPutRequest.email());
-        user.setRole(userPutRequest.role());
-        user.setActive(userPutRequest.active());
         
-        userRepository.save(user);
+        // Se fornecido role e o usuário atual for ADMIN, atualizar papel
+        if (userPutRequest.role() != null && SecurityContextHolder.getContext().getAuthentication() != null) {
+            UserDetails currentUser = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            if (currentUser instanceof User && ((User) currentUser).getRole() == UserRole.ADMIN) {
+                user.setRole(userPutRequest.role());
+                // Apenas admins podem mudar status active
+                if (userPutRequest.active() != null) {
+                    user.setActive(userPutRequest.active());
+                }
+            }
+        }
+        
+        // Processar alteração de senha
+        if (userPutRequest.newPassword() != null && !userPutRequest.newPassword().isEmpty()) {
+            // Validar senha atual
+            if (userPutRequest.currentPassword() == null || !passwordEncoder.matches(userPutRequest.currentPassword(), user.getPassword())) {
+                throw new IllegalArgumentException("Senha atual incorreta");
+            }
+            
+            // Definir nova senha
+            user.setPassword(passwordEncoder.encode(userPutRequest.newPassword()));
+        }
+        
+        // Salvar alterações
+        User updatedUser = userRepository.save(user);
+        
+        // Retornar dados atualizados
+        return mapper.toUserGetResponse(updatedUser);
     }
     
     @Override

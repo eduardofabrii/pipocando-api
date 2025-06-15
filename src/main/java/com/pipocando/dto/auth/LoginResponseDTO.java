@@ -1,5 +1,8 @@
 package com.pipocando.dto.auth;
 
-public record LoginResponseDTO(String token, String name, String role) {
-
-}
+public record LoginResponseDTO(
+    String token, 
+    String userName, 
+    String role,
+    Integer userId
+) {}

@@ -3,6 +3,7 @@ package com.pipocando.controller;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,6 +37,6 @@ public class AuthController {
 
         userService.updateLastLogin(dto.email());
         
-        return ResponseEntity.ok(new LoginResponseDTO(token, user.getName(), user.getRole().name()));
+        return ResponseEntity.ok(new LoginResponseDTO(token, user.getName(), user.getRole().name(), user.getId()));
     }
 }
