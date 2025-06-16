@@ -27,6 +27,9 @@ public class Post {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
+    @Column(name = "url_image", nullable = true)
+    private String urlImage;
+
     @Column(name = "category")
     private String category;
 }

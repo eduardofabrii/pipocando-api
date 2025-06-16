@@ -17,4 +17,6 @@ public class PostRequest {
     
     private Integer movieId;
     private Integer serieId;
+    private String urlImage;
+    private String category;
 }

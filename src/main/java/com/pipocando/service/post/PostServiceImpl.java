@@ -40,10 +40,13 @@ public class PostServiceImpl implements PostService {
         post.setUserId(postDTO.getUserId());
         post.setMovieId(postDTO.getMovieId());
         post.setSerieId(postDTO.getSerieId());
+        post.setUrlImage(postDTO.getUrlImage());
         post.setCreatedAt(java.time.LocalDateTime.now());
         post.setUpdatedAt(java.time.LocalDateTime.now());
         
-        if (postDTO.getMovieId() != null) {
+        if (postDTO.getCategory() != null) {
+            post.setCategory(postDTO.getCategory());
+        } else if (postDTO.getMovieId() != null) {
             post.setCategory("Filmes");
         } else if (postDTO.getSerieId() != null) {
             post.setCategory("Séries");
@@ -64,9 +67,12 @@ public class PostServiceImpl implements PostService {
         post.setUserId(postDTO.getUserId());
         post.setMovieId(postDTO.getMovieId());
         post.setSerieId(postDTO.getSerieId());
+        post.setUrlImage(postDTO.getUrlImage());
         post.setUpdatedAt(java.time.LocalDateTime.now());
         
-        if (postDTO.getMovieId() != null) {
+        if (postDTO.getCategory() != null) {
+            post.setCategory(postDTO.getCategory());
+        } else if (postDTO.getMovieId() != null) {
             post.setCategory("Filmes");
         } else if (postDTO.getSerieId() != null) {
             post.setCategory("Séries");

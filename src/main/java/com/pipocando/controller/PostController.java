@@ -34,7 +34,7 @@ public class PostController {
             @RequestParam(required = false) Integer movieId,
             @RequestParam(required = false) Integer serieId) {
         if (title != null || userId != null || movieId != null || serieId != null) {
-            return ResponseEntity.ok(postService.searchPosts(title, userId, movieId, serieId));
+            return ResponseEntity.ok(postService.searchPosts(title, userId, movieId, serieId ));
         }
         return ResponseEntity.ok(postService.getAllPosts());
     }

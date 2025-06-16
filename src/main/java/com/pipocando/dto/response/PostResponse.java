@@ -10,5 +10,6 @@ public class PostResponse {
     private String content;
     private AuthorResponse author;
     private String category;
+    private String urlImage;
     private LocalDateTime createdAt;
 }

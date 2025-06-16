@@ -111,15 +111,34 @@ public class PipocandoApplication implements CommandLineRunner{
 
 		// Posts
 		Post p1 = new Post(); p1.setTitle("Primeira postagem"); p1.setContent("Conteúdo do post 1"); p1.setUserId(usuario2.getId()); p1.setMovieId(m1.getId()); p1.setCategory("Filmes");
+		p1.setUrlImage("https://image.tmdb.org/t/p/original/edv5CZvWj09upOsy71SPU58G7BU.jpg"); // Inception
+		
 		Post p2 = new Post(); p2.setTitle("Segunda postagem"); p2.setContent("Conteúdo do post 2"); p2.setUserId(usuario3.getId()); p2.setSerieId(s2.getId()); p2.setCategory("Séries");
+		p2.setUrlImage("https://image.tmdb.org/t/p/original/5LoHuHWA4H8jElFlZDvsmU2n63b.jpg"); // Dark
+		
 		Post p3 = new Post(); p3.setTitle("Terceira postagem"); p3.setContent("Conteúdo do post 3"); p3.setUserId(usuario4.getId()); p3.setMovieId(m3.getId()); p3.setCategory("Filmes");
+		p3.setUrlImage("https://image.tmdb.org/t/p/original/gEU2QniE6E77NI6lCU6MxlNBvIx.jpg"); // Interstellar
+		
 		Post p4 = new Post(); p4.setTitle("Quarta postagem"); p4.setContent("Conteúdo do post 4"); p4.setUserId(usuario5.getId()); p4.setSerieId(s4.getId()); p4.setCategory("Séries");
+		p4.setUrlImage("https://image.tmdb.org/t/p/original/ggFHVNu6YYI5L9pCfOacjizRGt.jpg"); // Breaking Bad
+		
 		Post p5 = new Post(); p5.setTitle("Quinta postagem"); p5.setContent("Conteúdo do post 5"); p5.setUserId(usuario6.getId()); p5.setMovieId(m5.getId()); p5.setCategory("Filmes");
+		p5.setUrlImage("https://image.tmdb.org/t/p/original/t6HIqrRAclMCA60NsSmeqe9RmNV.jpg"); // Avatar
+		
 		Post p6 = new Post(); p6.setTitle("Sexta postagem"); p6.setContent("Conteúdo do post 6"); p6.setUserId(usuario7.getId()); p6.setSerieId(s6.getId()); p6.setCategory("Séries");
+		p6.setUrlImage("https://image.tmdb.org/t/p/original/f496cm9enuEsZkSPzCwnTESEK5s.jpg"); // Friends
+		
 		Post p7 = new Post(); p7.setTitle("Sétima postagem"); p7.setContent("Conteúdo do post 7"); p7.setUserId(usuario8.getId()); p7.setMovieId(m7.getId()); p7.setCategory("Filmes");
+		p7.setUrlImage("https://image.tmdb.org/t/p/original/3bhkrj58Vtu7enYsRolD1fZdja1.jpg"); // The Godfather
+		
 		Post p8 = new Post(); p8.setTitle("Oitava postagem"); p8.setContent("Conteúdo do post 8"); p8.setUserId(usuario9.getId()); p8.setSerieId(s8.getId()); p8.setCategory("Séries");
+		p8.setUrlImage("https://image.tmdb.org/t/p/original/u3bZgnGQ9T01sWNhyveQz0wH0Hl.jpg"); // Game of Thrones
+		
 		Post p9 = new Post(); p9.setTitle("Nona postagem"); p9.setContent("Conteúdo do post 9"); p9.setUserId(usuario10.getId()); p9.setMovieId(m9.getId()); p9.setCategory("Filmes");
+		p9.setUrlImage("https://image.tmdb.org/t/p/original/q6y0Go1tsGEsmtFryDOJo3dEmqu.jpg"); // The Shawshank Redemption
+		
 		Post p10 = new Post(); p10.setTitle("Décima postagem"); p10.setContent("Conteúdo do post 10"); p10.setUserId(usuario11.getId()); p10.setSerieId(s10.getId()); p10.setCategory("Séries");
+		p10.setUrlImage("https://image.tmdb.org/t/p/original/og6S0aTZU6YUJAbqxeKjCa3kY1E.jpg"); // Lost
 		postRepository.saveAll(Arrays.asList(p1,p2,p3,p4,p5,p6,p7,p8,p9,p10));
 
 		// Comments
