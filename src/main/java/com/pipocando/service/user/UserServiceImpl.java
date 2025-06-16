@@ -115,10 +115,11 @@ public class UserServiceImpl implements UserService {
         User user = userRepository.findByIdAndDeletedAtIsNull(id)
             .orElseThrow(() -> new EntityNotFoundException("Usuário não encontrado com o ID: " + id));
         
-        user.setDeletedAt(LocalDateTime.now());
-        user.setActive(false);
-        
-        userRepository.save(user);
+        // user.setDeletedAt(LocalDateTime.now());
+        // user.setActive(false);
+        // userRepository.save(user);
+
+        userRepository.delete(user);
     }
     
     @Override
