@@ -71,6 +71,17 @@ public class PostController {
         return ResponseEntity.ok(commentService.getComments(postId));
     }
 
+    @PutMapping("/comment/{commentId}")
+    public ResponseEntity<CommentResponse> updateComment(@PathVariable Integer commentId, @RequestBody CommentRequest commentDTO) {
+        return ResponseEntity.ok(commentService.updateComment(commentId, commentDTO));
+    }
+
+    @DeleteMapping("/comment/{commentId}")
+    public ResponseEntity<Void> deleteComment(@PathVariable Integer commentId) {
+        commentService.deleteComment(commentId);
+        return ResponseEntity.ok().build();
+    }
+
     // Avaliações
     @PostMapping("/{postId}/evaluation")
     public ResponseEntity<PostEvaluationResponse> addEvaluation(@PathVariable Integer postId, @RequestBody PostEvaluationRequest evaluationDTO) {
