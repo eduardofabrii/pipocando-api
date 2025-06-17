@@ -111,7 +111,7 @@ public class PipocandoApplication implements CommandLineRunner{
 
 		// Posts
 		Post p1 = new Post(); p1.setTitle("Primeira postagem"); p1.setContent("Conteúdo do post 1"); p1.setUserId(usuario2.getId()); p1.setMovieId(m1.getId()); p1.setCategory("Filmes");
-		p1.setUrlImage("https://image.tmdb.org/t/p/original/edv5CZvWj09upOsy71SPU58G7BU.jpg"); // Inception
+		p1.setUrlImage("https://encrypted-tbn1.gstatic.com/licensed-image?q=tbn:ANd9GcSC6oYQ7-Vo9shrfuxIE4TM4IxWNx8K1cGXah746e1sQwChb0zSwt9zfiI6yCqhvOjHa7g61bzeFuSm5-o"); // Inception
 		
 		Post p2 = new Post(); p2.setTitle("Segunda postagem"); p2.setContent("Conteúdo do post 2"); p2.setUserId(usuario3.getId()); p2.setSerieId(s2.getId()); p2.setCategory("Séries");
 		p2.setUrlImage("https://image.tmdb.org/t/p/original/5LoHuHWA4H8jElFlZDvsmU2n63b.jpg"); // Dark
